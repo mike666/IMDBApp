@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 
 namespace IMDBWebClient {
-    public class IMDBquery : IWebQuery {
+    public class IMDBmoviequery : IWebQuery {
         public string Url { get; private set; }
         public string Title { get; set; }
         public int? Year { get; set; }
         public string Plot { get; set; }
         public string ResponseContentType { get; set; }
                
-        public IMDBquery(string apiUrl = "http://www.omdbapi.com") {
+        public IMDBmoviequery(string apiUrl = "http://www.omdbapi.com") {
             Url = apiUrl;
         }
 

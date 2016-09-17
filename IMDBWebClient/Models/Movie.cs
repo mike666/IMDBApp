@@ -3,7 +3,7 @@
 namespace IMDBWebClient {
     public class Movie : IResponseData {
         public string Title { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public string Rated { get; set; }
         public DateTime Released { get; set; }
         public string Runtime { get; set; }

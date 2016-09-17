@@ -53,8 +53,11 @@
     <Compile Include="Interfaces\ISerializer.cs" />
     <Compile Include="Interfaces\IHTTPClient.cs" />
     <Compile Include="HTTPClient.cs" />
-    <Compile Include="Models\IMDBQuery.cs" />
+    <Compile Include="Models\IMDBSearchQuery.cs" />
+    <Compile Include="Models\IMDBMovieQuery.cs" />
     <Compile Include="Models\IMDBWebResponse.cs" />
+    <Compile Include="Models\MovieBasic.cs" />
+    <Compile Include="Models\MovieSearch.cs" />
     <Compile Include="Models\NullMovie.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

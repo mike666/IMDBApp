@@ -1,3 +1,5 @@
 ﻿namespace IMDBWebClient {
-    public interface IResponseData { }
+    public interface IResponseData {
+        bool Response { get; }
+    }
 }

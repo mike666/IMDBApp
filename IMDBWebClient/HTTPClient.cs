@@ -21,7 +21,7 @@ namespace IMDBWebClient {
 
             try {
                 return (HttpWebResponse)req.GetResponse();
-            } catch (Exception we) {
+            } catch {
                 throw;
             }
         }

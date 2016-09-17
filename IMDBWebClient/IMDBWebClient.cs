@@ -13,21 +13,35 @@ namespace IMDBWebClient {
             _Serializer = serializer;
         }
 
-        public virtual IWebResponse Get(IWebQuery webQuery) {
+        public virtual IWebResponse GetMovie(IWebQuery webQuery) {
             string urlAndQuery = webQuery.Url + "?" + String.Join("&", webQuery.QueryStringParameters().Select(kvp => String.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
 
             using (HttpWebResponse response = _HTTPClient.Get(urlAndQuery, "application/json")) {
                 using (var sr = new System.IO.StreamReader(response.GetResponseStream())) {
-                    return GetResponseData(sr.ReadToEnd().Trim());
+                    string responseContent = sr.ReadToEnd().Trim();
+
+                    try {
+                        return new IMDBWebResponse(_Serializer.Deserialize<Movie>(responseContent), WebResponseStatus.Found);
+                    } catch {
+                        return new IMDBWebResponse(_Serializer.Deserialize<NullMovie>(responseContent), WebResponseStatus.NotFound);
+                    }
                 }
             }
         }
 
-        protected virtual IWebResponse GetResponseData(string responseContent) {
-            try {
-                return new IMDBWebResponse(_Serializer.Deserialize<Movie>(responseContent), WebResponseStatus.Found); ; 
-            } catch {
-                return new IMDBWebResponse(_Serializer.Deserialize<NullMovie>(responseContent), WebResponseStatus.NotFound); ;
+        public virtual IWebResponse SearchMovie(IWebQuery webQuery) {
+            string urlAndQuery = webQuery.Url + "?" + String.Join("&", webQuery.QueryStringParameters().Select(kvp => String.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+
+            using (HttpWebResponse response = _HTTPClient.Get(urlAndQuery, "application/json")) {
+                using (var sr = new System.IO.StreamReader(response.GetResponseStream())) {
+                    string responseContent = sr.ReadToEnd().Trim();
+
+                    try {
+                        return new IMDBWebResponse(_Serializer.Deserialize<MovieSearch>(responseContent), WebResponseStatus.Found);
+                    } catch (Exception ex) {
+                        return new IMDBWebResponse(_Serializer.Deserialize<NullMovie>(responseContent), WebResponseStatus.NotFound);
+                    }
+                }
             }
         }
     }

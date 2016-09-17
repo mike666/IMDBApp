@@ -8,14 +8,19 @@ namespace IMDBApp {
 
             IMDBWebClient.IMDBWebClient imdbWebClient = new IMDBWebClient.IMDBWebClient(new HTTPClient(), serializer);
 
-            IMDBquery query = new IMDBquery("http://www.omdbapi.com") {
-                Title = "Heatoo",
+            IMDBmoviequery query = new IMDBmoviequery("http://www.omdbapi.com") {
+                Title = "Heat",
                 Year = 1995,
                 Plot = "full",
                 ResponseContentType = "json"
             };
 
-            IWebResponse response = imdbWebClient.Get(query);
+            IMDBSearchquery searchQuery = new IMDBSearchquery("http://www.omdbapi.com") {
+                Title = "Batman",
+                ResponseContentType = "json"
+            };
+
+            IWebResponse response = imdbWebClient.SearchMovie(searchQuery);
 
             Console.Write(serializer.Serialize(response.ResponseData));
             Console.ReadLine();
