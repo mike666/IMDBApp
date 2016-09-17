@@ -14,19 +14,17 @@ namespace IMDBWebClient {
         public virtual IWebResponse Get() {
             using (HttpWebResponse response = _HTTPClient.Get("http://www.omdbapi.com/?t=heat&y=1995&plot=full&r=json", new Dictionary<string, string>(), "application/json")) {
                 using (var sr = new System.IO.StreamReader(response.GetResponseStream())) {
-                    return new IMDBWebResponse(GetResponseData(sr.ReadToEnd().Trim()), WebResponseStatus.Found);
+                    return GetResponseData(sr.ReadToEnd().Trim());
                 }
             }
         }
 
-        protected virtual IResponseData GetResponseData(string responseContent) {
-            Movie movie = _Serializer.Deserialize<Movie>(responseContent);
-
-            if (movie == null) {
-                return _Serializer.Deserialize<NullMovie>(responseContent);
+        protected virtual IWebResponse GetResponseData(string responseContent) {
+            try {
+                return new IMDBWebResponse(_Serializer.Deserialize<Movie>(responseContent), WebResponseStatus.Found); ; 
+            } catch {
+                return new IMDBWebResponse(_Serializer.Deserialize<NullMovie>(responseContent), WebResponseStatus.NotFound); ;
             }
-            
-            return movie;
         }
     }
 }
