@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Linq;
+using System;
 
 namespace IMDBWebClient {
     public class IMDBWebClient {
@@ -11,8 +13,10 @@ namespace IMDBWebClient {
             _Serializer = serializer;
         }
 
-        public virtual IWebResponse Get() {
-            using (HttpWebResponse response = _HTTPClient.Get("http://www.omdbapi.com/?t=heat&y=1995&plot=full&r=json", new Dictionary<string, string>(), "application/json")) {
+        public virtual IWebResponse Get(IWebQuery webQuery) {
+            string urlAndQuery = webQuery.Url + "?" + String.Join("&", webQuery.QueryStringParameters().Select(kvp => String.Format("{0}={1}", kvp.Key, kvp.Value)).ToArray());
+
+            using (HttpWebResponse response = _HTTPClient.Get(urlAndQuery, "application/json")) {
                 using (var sr = new System.IO.StreamReader(response.GetResponseStream())) {
                     return GetResponseData(sr.ReadToEnd().Trim());
                 }

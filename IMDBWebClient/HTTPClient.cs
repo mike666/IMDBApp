@@ -12,7 +12,7 @@ namespace IMDBWebClient {
         /// <param name="url">The url for http get request</param>
         /// <param name="parameters">The paramaters to send</param>
         /// <returns>An http response</returns>
-        public virtual HttpWebResponse Get(string url, Dictionary<string, string> parameters, string contentType) {
+        public virtual HttpWebResponse Get(string url, string contentType) {
             HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
 
             req.Method = "GET";

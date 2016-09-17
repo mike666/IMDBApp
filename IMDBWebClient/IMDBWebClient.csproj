@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\WebResponseStatus.cs" />
+    <Compile Include="Interfaces\IWebQuery.cs" />
     <Compile Include="Interfaces\IWebResponse.cs" />
     <Compile Include="Interfaces\IResponseData.cs" />
     <Compile Include="JsonSerializer.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Interfaces\ISerializer.cs" />
     <Compile Include="Interfaces\IHTTPClient.cs" />
     <Compile Include="HTTPClient.cs" />
+    <Compile Include="Models\IMDBQuery.cs" />
     <Compile Include="Models\IMDBWebResponse.cs" />
     <Compile Include="Models\NullMovie.cs" />
     <Compile Include="Models\Movie.cs" />

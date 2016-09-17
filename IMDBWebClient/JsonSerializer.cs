@@ -1,8 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Reflection;
 
 namespace IMDBWebClient {
     public class JsonSerializer : ISerializer {
@@ -12,6 +8,10 @@ namespace IMDBWebClient {
             };
                         
             return JsonConvert.DeserializeObject<T>(content, serialiserSettings);
+        }
+
+        public string Serialize(object targetObject) {
+            return JsonConvert.SerializeObject(targetObject);
         }
     }
 }
